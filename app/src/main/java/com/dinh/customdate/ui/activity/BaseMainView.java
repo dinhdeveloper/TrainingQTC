@@ -40,7 +40,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
 
     public void initProduct() {
         productDemoAdapter = new ProductDemoAdapter(activity, bodyPro);
-        ui.rc_product.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        ui.rc_product.setLayoutManager(new GridLayoutManager(getContext(),2));
         ui.rc_product.setAdapter(productDemoAdapter);
     }
 
@@ -53,7 +53,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     @Override
     public void setProduct(List<DemoProductModel> body) {
         if (body != null && productDemoAdapter != null) {
-            bodyPro = body;
+            bodyPro.addAll(body);
             productDemoAdapter.notifyDataSetChanged();
         }
     }

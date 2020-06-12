@@ -12,9 +12,11 @@ import com.dinh.customdate.model.DataModel;
 import com.dinh.customdate.model.DemoProductModel;
 import com.dinh.customdate.ui.productdemo.ProductDemoView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import b.laixuantam.myaarlibrary.dependency.AppProvider;
 import b.laixuantam.myaarlibrary.widgets.superadapter.SuperAdapter;
 import b.laixuantam.myaarlibrary.widgets.superadapter.SuperViewHolder;
 
@@ -22,6 +24,8 @@ public class ProductDemoAdapter extends SuperAdapter<DemoProductModel> {
 
     public ProductDemoAdapter(Context context, List<DemoProductModel> items) {
         super(context, items, R.layout.custom_item_product);
+
+
     }
 
     @Override
@@ -33,13 +37,20 @@ public class ProductDemoAdapter extends SuperAdapter<DemoProductModel> {
         TextView priceTiki = holder.findViewById(R.id.priceMoreItem);
         TextView priceLazada = holder.findViewById(R.id.priceMoresItem);
 
-        Log.e("HAHA",item.getCategory()+"");
 
-        Glide.with(getContext()).load(Consts.HOST_DEVS + item.getAvatar()).into(imagePro);
         nameItem.setText(item.getCategory().toString());
-        priceItem.setText(item.getPrice().toString());
-        priceSaleItem.setText(item.getPrice_discount().toString());
-        priceTiki.setText(item.getPrice_market_1().toString());
-        priceLazada.setText(item.getPrice_market_2().toString());
+
+        String pattern = "###,###.###";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        priceItem.setText(decimalFormat.format(Integer.parseInt(item.getPrice())) + " đ");
+        String sale = "<strike>" + decimalFormat.format(Integer.parseInt(item.getPrice_discount())) + " đ" + "</strike>";
+
+        priceSaleItem.setText(android.text.Html.fromHtml(sale));
+
+        priceTiki.setText(decimalFormat.format(Integer.parseInt(item.getPrice_market_1())) + " đ");
+        
+        priceLazada.setText(decimalFormat.format(Integer.parseInt(item.getPrice_market_2())) + " đ");
+        String imageLink = Consts.HOST_DEVS + item.getPhoto_avatar();
+        AppProvider.getImageHelper().displayImage(imageLink, imagePro, null, 0);
     }
 }

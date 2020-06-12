@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseAction
 
     private void getDataProduct() {
         DemoProductRequest.ApiParams params = new DemoProductRequest.ApiParams();
+        params.page = "";
         AppProvider.getApiManagement().call(DemoProductRequest.class, params, new ApiRequest.ApiCallback<DataModel>() {
 
             @Override

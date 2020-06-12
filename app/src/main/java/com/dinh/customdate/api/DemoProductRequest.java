@@ -46,5 +46,6 @@ public class DemoProductRequest extends ApiRequest<DemoProductRequest.Service, D
 
     public static class ApiParams extends BaseApiParams {
         public String detect;
+        public String page;
     }
 }
