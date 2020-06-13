@@ -47,7 +47,7 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) // Nếu không phải trạng thái loading và tổng số lượng item bé hơn hoặc bằng vị trí item cuối + số lượng item tối đa hiển thị
                 {
                     if (loadMore != null)
-                        loadMore.onLoadMore(); // Gọi callback interface Loadmore
+                        //loadMore.onLoadMore(); // Gọi callback interface Loadmore
                     isLoading = true;
                 }
 

@@ -43,7 +43,9 @@
 <!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScroll"
         android:fillViewport="true"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -212,6 +214,8 @@
                     android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <include layout="@layout/item_loading"/>
 
             </LinearLayout>
         </LinearLayout>

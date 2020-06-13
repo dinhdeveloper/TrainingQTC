@@ -1,5 +1,7 @@
 package com.dinh.customdate.ui.activity;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dinh.customdate.activity.MainActivity;
 import com.dinh.customdate.model.CategoryModel;
 import com.dinh.customdate.model.DemoProductModel;
@@ -14,7 +16,6 @@ public interface BaseMainViewInterface extends BaseViewInterface {
 
     void setProduct(List<DemoProductModel> body);
     void setCategory(List<CategoryModel> body);
-
-
+    //void initScrollListener();
     
 }

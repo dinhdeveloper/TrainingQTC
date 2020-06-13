@@ -2,9 +2,13 @@ package com.dinh.customdate.activity;
 
 
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinh.customdate.api.CategoryRequest;
 import com.dinh.customdate.api.DemoProductRequest;
+import com.dinh.customdate.helper.ILoadMore;
 import com.dinh.customdate.model.CategoryModel;
 import com.dinh.customdate.model.DataModel;
 import com.dinh.customdate.model.DemoProductModel;
@@ -30,24 +34,27 @@ import b.laixuantam.myaarlibrary.dependency.ObjectProviderInterface;
 public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseActionbarView, BaseParameters> implements
         BaseMainViewCallback {
 
+    int pages = 1;
+
     @Override
     protected void initialize() {
         super.initialize();
         view.init(this, this);
         getDataCategory();
         getDataProduct();
-
     }
+
 
     private void getDataProduct() {
         DemoProductRequest.ApiParams params = new DemoProductRequest.ApiParams();
-        params.page = "";
+        params.page = String.valueOf(pages);
         AppProvider.getApiManagement().call(DemoProductRequest.class, params, new ApiRequest.ApiCallback<DataModel>() {
 
             @Override
             public void onSuccess(DataModel body) {
                 if (body != null) {
                     view.setProduct(body.getListDataProduct());
+                    pages = pages + 1;
                 }
             }
 
@@ -61,6 +68,17 @@ public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseAction
 
             }
         });
+    }
+
+    @Override
+    public void onRequestLoadMoreProduct() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataProduct();
+            }
+        }, 2000);
+
     }
 
     private void getDataCategory() {
