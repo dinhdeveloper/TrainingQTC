@@ -1,7 +1,11 @@
 package com.dinh.customdate.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -13,13 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinh.customdate.R;
+import com.dinh.customdate.activity.DetailActivity;
 import com.dinh.customdate.activity.MainActivity;
 import com.dinh.customdate.adapter.CategoryAdapter;
 import com.dinh.customdate.adapter.ProductDemoAdapter;
+import com.dinh.customdate.adapter.SlideAdvertiseAdapter;
 import com.dinh.customdate.helper.ILoadMore;
 import com.dinh.customdate.model.CategoryModel;
 import com.dinh.customdate.model.DemoProductModel;
 import com.dinh.customdate.ui.productdemo.ProductDemoView;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
@@ -38,6 +46,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     private List<DemoProductModel> bodyPro = new ArrayList<>();
     ProductDemoAdapter productDemoAdapter;
     CategoryAdapter catogoryAdapter;
+    SlideAdvertiseAdapter sliderAdapter;
 
     boolean isLoading = true;
 
@@ -45,9 +54,34 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     public void init(MainActivity activity, BaseMainViewCallback callback) {
         this.callback = callback;
         this.activity = activity;
+        
+        initSlider();
         initCategory();
         initProduct();
         initScrollListener();
+        eventOnClick();
+    }
+
+    private void initSlider() {
+        sliderAdapter = new SlideAdvertiseAdapter(activity);
+        ui.imageSlider.setSliderAdapter(sliderAdapter);
+        ui.imageSlider.setIndicatorAnimation(IndicatorAnimations.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        ui.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        ui.imageSlider.setAutoCycleDirection(SliderView.AUTOFILL_TYPE_NONE);
+        ui.imageSlider.setIndicatorSelectedColor(Color.WHITE);
+        ui.imageSlider.setIndicatorUnselectedColor(Color.argb(1, 248, 249, 249));
+        //sliderView.setScrollTimeInSec(2); //set scroll delay in seconds :
+        ui.imageSlider.startAutoCycle();
+    }
+
+    private void eventOnClick() {
+        ui.iconHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                ((Activity) getContext()).startActivity(intent);
+            }
+        });
     }
 
     public void initProduct() {
@@ -58,6 +92,34 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     }
 
 
+
+
+    @Override
+    public void setProduct(List<DemoProductModel> body) {
+        if (body != null && productDemoAdapter != null) {
+            bodyPro.addAll(body);
+            productDemoAdapter.notifyDataSetChanged();
+            if (isLoading == true) {
+                ui.progressBar.setVisibility(View.GONE);
+                isLoading = false;
+            }
+        }
+    }
+
+    public void initCategory() {
+        ViewCompat.setNestedScrollingEnabled(ui.rc_category, false);
+        catogoryAdapter = new CategoryAdapter(activity, bodyCate);
+        ui.rc_category.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        ui.rc_category.setAdapter(catogoryAdapter);
+    }
+
+    @Override
+    public void setCategory(List<CategoryModel> body) {
+        if (body != null && catogoryAdapter != null) {
+            bodyCate.addAll(body);
+            catogoryAdapter.notifyDataSetChanged();
+        }
+    }
     public void initScrollListener() {
         ui.nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -73,33 +135,6 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
                 }
             }
         });
-    }
-
-    public void initCategory() {
-        ViewCompat.setNestedScrollingEnabled(ui.rc_category, false);
-        catogoryAdapter = new CategoryAdapter(activity, bodyCate);
-        ui.rc_category.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        ui.rc_category.setAdapter(catogoryAdapter);
-    }
-
-    @Override
-    public void setProduct(List<DemoProductModel> body) {
-        if (body != null && productDemoAdapter != null) {
-            bodyPro.addAll(body);
-            productDemoAdapter.notifyDataSetChanged();
-            if (isLoading == true) {
-                ui.progressBar.setVisibility(View.GONE);
-                isLoading = false;
-            }
-        }
-    }
-
-    @Override
-    public void setCategory(List<CategoryModel> body) {
-        if (body != null && catogoryAdapter != null) {
-            bodyCate.addAll(body);
-            catogoryAdapter.notifyDataSetChanged();
-        }
     }
 
 
@@ -128,5 +163,8 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
 
         @UiElement(R.id.nestedScroll)
         public NestedScrollView nestedScroll;
+
+        @UiElement(R.id.iconHome)
+        public ImageView iconHome;
     }
 }

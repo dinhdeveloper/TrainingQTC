@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseAction
             public void run() {
                 getDataProduct();
             }
-        }, 2000);
+        }, 3000);
 
     }
 
