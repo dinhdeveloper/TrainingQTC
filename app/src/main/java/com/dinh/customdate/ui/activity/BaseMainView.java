@@ -3,37 +3,31 @@ package com.dinh.customdate.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinh.customdate.R;
 import com.dinh.customdate.activity.DetailActivity;
 import com.dinh.customdate.activity.MainActivity;
+import com.dinh.customdate.activity.CategoryDetailActivity;
 import com.dinh.customdate.adapter.CategoryAdapter;
 import com.dinh.customdate.adapter.ProductDemoAdapter;
 import com.dinh.customdate.adapter.SlideAdvertiseAdapter;
-import com.dinh.customdate.helper.ILoadMore;
 import com.dinh.customdate.model.CategoryModel;
 import com.dinh.customdate.model.DemoProductModel;
-import com.dinh.customdate.ui.productdemo.ProductDemoView;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import b.laixuantam.myaarlibrary.base.BaseUiContainer;
 import b.laixuantam.myaarlibrary.base.BaseView;
@@ -54,7 +48,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     public void init(MainActivity activity, BaseMainViewCallback callback) {
         this.callback = callback;
         this.activity = activity;
-        
+
         initSlider();
         initCategory();
         initProduct();
@@ -82,6 +76,14 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
                 ((Activity) getContext()).startActivity(intent);
             }
         });
+
+        ui.giohang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CategoryDetailActivity.class);
+                ((Activity) getContext()).startActivity(intent);
+            }
+        });
     }
 
     public void initProduct() {
@@ -92,17 +94,23 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     }
 
 
-
-
     @Override
     public void setProduct(List<DemoProductModel> body) {
         if (body != null && productDemoAdapter != null) {
             bodyPro.addAll(body);
             productDemoAdapter.notifyDataSetChanged();
-            if (isLoading == true) {
-                ui.progressBar.setVisibility(View.GONE);
-                isLoading = false;
-            }
+            ui.rc_product.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (isLoading == true) {
+                        if (callback != null) {
+                            ui.progressBar.setVisibility(View.GONE);
+                            isLoading = false;
+                        }
+                    }
+                    ui.rc_product.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            });
         }
     }
 
@@ -120,6 +128,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
             catogoryAdapter.notifyDataSetChanged();
         }
     }
+
     public void initScrollListener() {
         ui.nestedScroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
@@ -127,10 +136,8 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
                 if (scrollY > oldScrollY) {
                     if (!isLoading) {
                         ui.progressBar.setVisibility(View.VISIBLE);
-                        if (callback != null) {
-                            callback.onRequestLoadMoreProduct();
-                            isLoading = true;
-                        }
+                        callback.onRequestLoadMoreProduct();
+                        isLoading = true;
                     }
                 }
             }
@@ -166,5 +173,8 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
 
         @UiElement(R.id.iconHome)
         public ImageView iconHome;
+
+        @UiElement(R.id.giohang)
+        public ImageView giohang;
     }
 }

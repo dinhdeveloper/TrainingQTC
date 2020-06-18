@@ -1,25 +1,23 @@
 package com.dinh.customdate.activity;
 
-
-import android.util.Log;
-import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.SeekBar;
+import android.widget.Toast;
+
+import com.dinh.customdate.R;
 import com.dinh.customdate.api.CategoryRequest;
-import com.dinh.customdate.api.DemoProductRequest;
-import com.dinh.customdate.helper.ILoadMore;
 import com.dinh.customdate.model.CategoryModel;
-import com.dinh.customdate.model.DataModel;
-import com.dinh.customdate.model.DemoProductModel;
-import com.dinh.customdate.ui.activity.BaseMainView;
 import com.dinh.customdate.ui.activity.BaseMainViewCallback;
 import com.dinh.customdate.ui.activity.BaseMainViewInterface;
-import com.dinh.customdate.ui.cateogry.CategoryViewCallback;
-import com.dinh.customdate.ui.productdemo.ProductDemoViewCallback;
+import com.dinh.customdate.ui.categorydetail.CategoryDetailView;
+import com.dinh.customdate.ui.categorydetail.CategoryDetailViewCallback;
+import com.dinh.customdate.ui.categorydetail.CategoryDetailViewInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import b.laixuantam.myaarlibrary.api.ApiRequest;
@@ -27,57 +25,16 @@ import b.laixuantam.myaarlibrary.api.ErrorApiResponse;
 import b.laixuantam.myaarlibrary.base.BaseActionbarView;
 import b.laixuantam.myaarlibrary.base.BaseActivity;
 import b.laixuantam.myaarlibrary.base.BaseParameters;
-import b.laixuantam.myaarlibrary.dependency.AppObjectProvider;
 import b.laixuantam.myaarlibrary.dependency.AppProvider;
-import b.laixuantam.myaarlibrary.dependency.ObjectProviderInterface;
 
-public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseActionbarView, BaseParameters> implements
-        BaseMainViewCallback {
-
-    int pages = 1;
+public class CategoryDetailActivity extends BaseActivity<CategoryDetailViewInterface, BaseActionbarView, BaseParameters> implements
+        CategoryDetailViewCallback {
 
     @Override
     protected void initialize() {
         super.initialize();
         view.init(this, this);
         getDataCategory();
-        getDataProduct();
-    }
-
-
-    private void getDataProduct() {
-        DemoProductRequest.ApiParams params = new DemoProductRequest.ApiParams();
-        params.page = String.valueOf(pages);
-        AppProvider.getApiManagement().call(DemoProductRequest.class, params, new ApiRequest.ApiCallback<DataModel>() {
-            @Override
-            public void onSuccess(DataModel body) {
-                if (body != null) {
-                    view.setProduct(body.getListDataProduct());
-                    pages = pages + 1;
-                }
-            }
-
-            @Override
-            public void onError(ErrorApiResponse error) {
-
-            }
-
-            @Override
-            public void onFail(ApiRequest.RequestError error) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onRequestLoadMoreProduct() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getDataProduct();
-            }
-        }, 2000);
-
     }
 
     private void getDataCategory() {
@@ -109,8 +66,13 @@ public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseAction
     }
 
     @Override
-    protected BaseMainViewInterface getViewInstance() {
-        return new BaseMainView();
+    public int computeVerticalScrollRange(RecyclerView.State state) {
+        return 5000;
+    }
+
+    @Override
+    protected CategoryDetailViewInterface getViewInstance() {
+        return new CategoryDetailView();
     }
 
     @Override
@@ -122,5 +84,4 @@ public class MainActivity extends BaseActivity<BaseMainViewInterface, BaseAction
     protected BaseParameters getParametersContainer() {
         return null;
     }
-
 }

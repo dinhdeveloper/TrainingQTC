@@ -45,12 +45,14 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScroll"
         android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <androidx.appcompat.widget.Toolbar
@@ -92,8 +94,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                         <ImageView
+                            android:id="@+id/giohang"
                             android:layout_marginRight="5dp"
-                            android:src="@drawable/ic_baseline_shopping_cart_24"
+                            android:src="@drawable/ic_baseline_shopping"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
@@ -196,6 +199,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_category"
+                    android:scrollbars="none"
                     android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -210,6 +214,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_product"
+                    android:scrollbars="none"
                     android:layout_marginVertical="5dp"
                     android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"

@@ -24,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     private NumberPicker numberPicker, numberPickerMonth;
     LinearLayout buttonLayout;
     DateRangeCalendarView calendar;
-    public int year = 0;
+    int year = 0;
     int month = 0;
 
     ImageView imageBack;
@@ -171,13 +171,13 @@ public class DetailActivity extends AppCompatActivity {
 //        calendar.setCurrentMonth(current);
 
         Calendar startMonth = Calendar.getInstance();
+        startMonth.set(2020,6,15);
         startMonth.add(Calendar.MONTH, 0);
         Calendar endMonth = (Calendar) Calendar.getInstance().clone();
         endMonth.add(Calendar.MONTH, 1);
         //startMonth.set(2020,6,11);
 
         calendar.setVisibleMonthRange(startMonth, endMonth);
-
 
         calendar.setCalendarListener(new DateRangeCalendarView.CalendarListener() {
             @Override

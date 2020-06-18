@@ -69,4 +69,6 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     //push broadcast
     implementation 'org.greenrobot:eventbus:3.0.0'
+
+    implementation 'com.lukelorusso:verticalseekbar:1.2.3'
 }
