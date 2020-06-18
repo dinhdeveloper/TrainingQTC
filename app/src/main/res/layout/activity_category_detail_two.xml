@@ -17,6 +17,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_list_detail"
+            android:background="@drawable/custom_background_rc"
             android:fitsSystemWindows="true"
             android:clipToPadding="false"
             android:layout_width="110dp"
