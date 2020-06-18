@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinh.customdate.R;
 import com.dinh.customdate.activity.DetailActivity;
+import com.dinh.customdate.activity.ListLevelDetailActivity;
 import com.dinh.customdate.activity.MainActivity;
 import com.dinh.customdate.activity.CategoryDetailActivity;
+import com.dinh.customdate.activity.ProfileActivity;
 import com.dinh.customdate.adapter.CategoryAdapter;
 import com.dinh.customdate.adapter.ProductDemoAdapter;
 import com.dinh.customdate.adapter.SlideAdvertiseAdapter;
@@ -72,7 +74,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
         ui.iconHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DetailActivity.class);
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
                 ((Activity) getContext()).startActivity(intent);
             }
         });
@@ -81,6 +83,14 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), CategoryDetailActivity.class);
+                ((Activity) getContext()).startActivity(intent);
+            }
+        });
+
+        ui.imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ListLevelDetailActivity.class);
                 ((Activity) getContext()).startActivity(intent);
             }
         });
@@ -176,5 +186,8 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
 
         @UiElement(R.id.giohang)
         public ImageView giohang;
+
+        @UiElement(R.id.imageBack)
+        public ImageView imageBack;
     }
 }

@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.CategoryDetailActivity"></activity>
+        <activity android:name=".activity.ListLevelDetailActivity"></activity>
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.TestLayoutActivity" />
+        <activity android:name=".activity.CategoryDetailActivity" />
         <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

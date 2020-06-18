@@ -1,7 +1,9 @@
 package com.dinh.customdate.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,12 +13,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dinh.customdate.R;
+import com.dinh.customdate.activity.TestLayoutActivity;
 import com.dinh.customdate.model.CategoryModel;
 
 
@@ -66,6 +70,8 @@ public class CategoryAdapter extends SuperAdapter<CategoryModel> {
             public void onClick(View v) {
                 if (listener != null)
                     listener.onItemClick(item);
+                Intent intent = new Intent(getContext(), TestLayoutActivity.class);
+                ((Activity) getContext()).startActivity(intent);
             }
         });
 
