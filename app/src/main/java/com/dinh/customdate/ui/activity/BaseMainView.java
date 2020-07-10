@@ -3,14 +3,18 @@ package com.dinh.customdate.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dinh.customdate.R;
@@ -20,6 +24,7 @@ import com.dinh.customdate.activity.MainActivity;
 import com.dinh.customdate.activity.CategoryDetailActivity;
 import com.dinh.customdate.activity.ProfileActivity;
 import com.dinh.customdate.adapter.CategoryAdapter;
+import com.dinh.customdate.adapter.DemoCateAdapter;
 import com.dinh.customdate.adapter.ProductDemoAdapter;
 import com.dinh.customdate.adapter.SlideAdvertiseAdapter;
 import com.dinh.customdate.model.CategoryModel;
@@ -28,8 +33,15 @@ import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import b.laixuantam.myaarlibrary.base.BaseUiContainer;
 import b.laixuantam.myaarlibrary.base.BaseView;
@@ -42,6 +54,7 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
     private List<DemoProductModel> bodyPro = new ArrayList<>();
     ProductDemoAdapter productDemoAdapter;
     CategoryAdapter catogoryAdapter;
+    DemoCateAdapter demoCateAdapter;
     SlideAdvertiseAdapter sliderAdapter;
 
     boolean isLoading = true;
@@ -76,6 +89,20 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ProfileActivity.class);
                 ((Activity) getContext()).startActivity(intent);
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    try {
+//                        Date myDate = Date.from(Instant.parse("2020-07-01T22:25:50Z"));
+//                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss, dd/MM/YYYY ");
+//                        //20:29:13, 9/7/2020
+//                        String formattedDate = dateFormat.format(myDate);
+//                        Timestamp timestamp = new java.sql.Timestamp(dateFormat.getTimeZone());
+//                        long ts = dateFormat.parse(formattedDate).getTime()/1000;
+//                        Log.e("AAAAA",ts+"");
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
             }
         });
 
@@ -91,6 +118,14 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ListLevelDetailActivity.class);
+                ((Activity) getContext()).startActivity(intent);
+            }
+        });
+
+        ui.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
                 ((Activity) getContext()).startActivity(intent);
             }
         });
@@ -126,16 +161,17 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
 
     public void initCategory() {
         ViewCompat.setNestedScrollingEnabled(ui.rc_category, false);
-        catogoryAdapter = new CategoryAdapter(activity, bodyCate);
-        ui.rc_category.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        ui.rc_category.setAdapter(catogoryAdapter);
+        demoCateAdapter = new DemoCateAdapter(activity, bodyCate);
+        ui.rc_category.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        ui.rc_category.setHasFixedSize(true);
+        ui.rc_category.setAdapter(demoCateAdapter);
     }
 
     @Override
     public void setCategory(List<CategoryModel> body) {
-        if (body != null && catogoryAdapter != null) {
+        if (body != null && demoCateAdapter != null) {
             bodyCate.addAll(body);
-            catogoryAdapter.notifyDataSetChanged();
+            demoCateAdapter.notifyDataSetChanged();
         }
     }
 
@@ -172,6 +208,9 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
         @UiElement(R.id.rc_category)
         public RecyclerView rc_category;
 
+        @UiElement(R.id.layout_search)
+        public LinearLayout layout_search;
+
         @UiElement(R.id.imageSlider)
         public SliderView imageSlider;
 
@@ -189,5 +228,8 @@ public class BaseMainView extends BaseView<BaseMainView.UIContainer> implements 
 
         @UiElement(R.id.imageBack)
         public ImageView imageBack;
+
+        @UiElement(R.id.image)
+        public ImageView image;
     }
 }

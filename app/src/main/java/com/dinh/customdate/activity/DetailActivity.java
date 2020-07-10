@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView;
 import com.dinh.customdate.R;
-import com.dinh.customdate.ui.calendar.CalendarInterface;
 import com.shawnlin.numberpicker.NumberPicker;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
@@ -36,10 +38,10 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         addControls();
-        addEventYear();
-        addEventMonth();
-        addEventDay();
-        onClick();
+//        addEventYear();
+//        addEventMonth();
+//        addEventDay();
+//        onClick();
     }
 
     private void onClick() {
@@ -52,14 +54,14 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     public void addControls() {
-        numberPicker = findViewById(R.id.year_picker);
-        numberPickerMonth = findViewById(R.id.month_picker);
+//        numberPicker = findViewById(R.id.year_picker);
+//        numberPickerMonth = findViewById(R.id.month_picker);
         buttonLayout = findViewById(R.id.buttonLayout);
-        calendar = findViewById(R.id.calendar);
+//        calendar = findViewById(R.id.calendar);
         imageBack = findViewById(R.id.imageBack);
-
-        Calendar current = Calendar.getInstance();
-        calendar.setCurrentMonth(current);
+//
+//        Calendar current = Calendar.getInstance();
+//        calendar.setCurrentMonth(current);
 
 
     }
@@ -70,20 +72,17 @@ public class DetailActivity extends AppCompatActivity {
         numberPickerMonth.setMinValue(1);
         numberPickerMonth.setMaxValue(data.length);
         numberPickerMonth.setDisplayedValues(data);
-        numberPickerMonth.setValue(6);
-
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        numberPickerMonth.setValue(Integer.parseInt(dateFormat.format(date)));
         // Set fading edge enabled
         numberPickerMonth.setFadingEdgeEnabled(true);
-
         // Set scroller enabled
         numberPickerMonth.setScrollerEnabled(true);
-
         // Set wrap selector wheel
         numberPickerMonth.setWrapSelectorWheel(true);
-
         // Set accessibility description enabled
         numberPickerMonth.setAccessibilityDescriptionEnabled(true);
-
         // OnClickListener
         numberPickerMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,15 +101,15 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-// OnScrollListener
-        numberPickerMonth.setOnScrollListener(new NumberPicker.OnScrollListener() {
-            @Override
-            public void onScrollStateChange(NumberPicker picker, int scrollState) {
-                if (scrollState == SCROLL_STATE_IDLE) {
-                    Log.d("HAHA", String.format(Locale.US, "newVal: %d", picker.getValue()));
-                }
-            }
-        });
+//// OnScrollListener
+//        numberPickerMonth.setOnScrollListener(new NumberPicker.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChange(NumberPicker picker, int scrollState) {
+//                if (scrollState == SCROLL_STATE_IDLE) {
+//                    Log.d("HAHA", String.format(Locale.US, "newVal: %d", picker.getValue()));
+//                }
+//            }
+//        });
     }
 
 
@@ -120,7 +119,7 @@ public class DetailActivity extends AppCompatActivity {
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(data.length);
         numberPicker.setDisplayedValues(data);
-        numberPicker.setValue(11);
+        numberPicker.setValue(Calendar.getInstance().get(Calendar.YEAR));
 
 
 // Set fading edge enabled

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dinh.customdate">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -11,11 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ListLevelDetailActivity"></activity>
+        <activity android:name=".activity.CalendarActivity"></activity>
+        <activity android:name=".activity.ListLevelDetailActivity" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.TestLayoutActivity" />
         <activity android:name=".activity.CategoryDetailActivity" />
-        <activity android:name=".activity.DetailActivity" />
+        <activity android:name=".activity.DetailActivity">
+        </activity>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +39,5 @@
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Dialog" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

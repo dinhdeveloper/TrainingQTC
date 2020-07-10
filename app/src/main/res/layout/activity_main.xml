@@ -6,55 +6,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/navBottom"
-    android:orientation="vertical"
     android:background="@color/colorBg"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
 
-<!--    <com.facebook.shimmer.ShimmerFrameLayout-->
-<!--        android:id="@+id/shimmer_view_product"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:orientation="vertical"-->
-<!--        app:shimmer_duration="800"-->
-<!--        tools:ignore="MissingClass,MissingConstraints">-->
+    <!--    <com.facebook.shimmer.ShimmerFrameLayout-->
+    <!--        android:id="@+id/shimmer_view_product"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:shimmer_duration="800"-->
+    <!--        tools:ignore="MissingClass,MissingConstraints">-->
 
-<!--        &lt;!&ndash; 3 rows added as a placeholders &ndash;&gt;-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
+    <!--        &lt;!&ndash; 3 rows added as a placeholders &ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical">-->
 
-<!--            <include layout="@layout/product_animation" />-->
+    <!--            <include layout="@layout/product_animation" />-->
 
-<!--            <include layout="@layout/product_animation" />-->
+    <!--            <include layout="@layout/product_animation" />-->
 
-<!--            <include layout="@layout/product_animation" />-->
+    <!--            <include layout="@layout/product_animation" />-->
 
-<!--            <include layout="@layout/product_animation" />-->
+    <!--            <include layout="@layout/product_animation" />-->
 
-<!--            <include layout="@layout/product_animation" />-->
+    <!--            <include layout="@layout/product_animation" />-->
 
-<!--            <include layout="@layout/product_animation" />-->
+    <!--            <include layout="@layout/product_animation" />-->
 
-<!--        </LinearLayout>-->
+    <!--        </LinearLayout>-->
 
-<!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
+    <!--    </com.facebook.shimmer.ShimmerFrameLayout>-->
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScroll"
-        android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:clickable="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:orientation="vertical">
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
@@ -74,32 +75,35 @@
                     android:paddingBottom="10dp">
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/imageBack"
-                            android:src="@drawable/ic_baseline_keyboard_arrow_left_24"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_left_24" />
+
                         <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="Shop A"
                             android:textColor="@color/colorText"
-                            android:layout_weight="1"
-                            android:textStyle="bold"
                             android:textSize="20dp"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/giohang"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/ic_baseline_shopping"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_baseline_shopping" />
                     </LinearLayout>
 
 
@@ -121,6 +125,7 @@
                             android:orientation="horizontal">
 
                             <ImageView
+                                android:id="@+id/image"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
@@ -133,9 +138,9 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="10dp"
                                 android:layout_weight="1"
-                                android:textColor="@color/colorTextOne"
                                 android:gravity="start|center"
-                                android:text="Tên sản phẩm" />
+                                android:text="Tên sản phẩm"
+                                android:textColor="@color/colorTextOne" />
 
                             <ImageView
                                 android:id="@+id/imgVoice"
@@ -146,31 +151,35 @@
                                 android:src="@drawable/ic_camera" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_marginTop="5dp"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/iconHome"
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/ic_baseline_home_24"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_baseline_home_24" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
+
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_home"
-                    android:layout_marginVertical="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp">
+                    android:layout_height="160dp"
+                    android:layout_marginVertical="10dp">
+
                     <com.smarteist.autoimageslider.SliderView
                         android:id="@+id/imageSlider"
                         android:layout_width="match_parent"
@@ -191,37 +200,46 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:text="Mua sắm theo danh mục:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:textStyle="bold"
+                    android:text="Mua sắm theo danh mục:"
                     android:textColor="@color/colorText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rc_category"
-                    android:scrollbars="none"
-                    android:nestedScrollingEnabled="false"
+                <TableLayout
+                    android:stretchColumns="*"
+                    android:gravity="center"
+                    android:background="@drawable/custom_border_table_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_category"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </TableLayout>
 
                 <View
                     android:id="@+id/viewer"
-                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
                     android:layout_marginVertical="10dp"
                     android:background="@color/colorTextOne"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"/>
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rc_product"
-                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
                     android:nestedScrollingEnabled="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:scrollbars="none" />
 
-                <include layout="@layout/item_loading"/>
+                <include layout="@layout/item_loading" />
 
             </LinearLayout>
         </LinearLayout>

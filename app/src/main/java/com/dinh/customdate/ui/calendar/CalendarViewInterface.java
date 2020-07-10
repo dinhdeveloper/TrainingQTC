@@ -2,6 +2,6 @@ package com.dinh.customdate.ui.calendar;
 
 import android.view.View;
 
-public interface CalendarInterface {
+public interface CalendarViewInterface {
     void setOnClick(View view);
 }
